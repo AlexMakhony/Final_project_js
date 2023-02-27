@@ -49,7 +49,7 @@ function getWeather(data) {
         <p class="status__name">${weatherStatus}</p>
       </div>
       <div class="location">
-        <img src="/Vector.svg" alt="checkpoint">
+        <img src="Vector.svg" alt="checkpoint">
         <p class="location__name">${location}</p>
       </div>
     </div>
