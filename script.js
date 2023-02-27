@@ -55,7 +55,7 @@ function getWeather(data) {
     </div>
   </div>
   <div class="icon__picture">
-    <img class="weather__picture" src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="Clouds">
+    <img class="weather__picture" src="https://openweathermap.org/img/w/${weatherIcon}.png" alt="Clouds">
   </div>
   <div class="date__wrapper">
     <div class="day">${currentDayOfWeek}</div>
@@ -123,7 +123,7 @@ function getWeatherForWeek() {
    let tempMin = data.list[0].main.temp;
    let tempMax = data.list[0].main.temp;
    let iconCode = data.list[0].weather[0].icon;
-   let iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+   let iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
    for (let i = 1; i < data.list.length; i++) {
      const dt = new Date(data.list[i].dt_txt);
      const date = dt.getDate();
@@ -143,7 +143,7 @@ function getWeatherForWeek() {
        tempMin = data.list[i].main.temp;
        tempMax = data.list[i].main.temp;
        iconCode = data.list[i].weather[0].icon;
-       iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+       iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
      } else { 
       // Обновляем данные для текущего дня
        if (data.list[i].main.temp < tempMin) {
