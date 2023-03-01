@@ -33,9 +33,10 @@ export async function getWeatherForOneDay(lat, lon) {
   // Вставляем условие, что если не работает геолокация на Браузере, то мы определяем погоду для Киева //
   let weatherForToday;
   if (lat && lon) {
-    weatherForToday = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APP_ID}&units=metric`;
-  } else {
-    weatherForToday = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${defaultCity}&appid=${APP_ID}`;
+    weatherForToday = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APP_ID}&units=metric`;
+  } 
+  else {
+    weatherForToday = `https://api.openweathermap.org/data/2.5/forecast?units=metric&q=${defaultCity}&appid=${APP_ID}`;
   }
   // Вставляем гифку пока ожидаем ответ от АПИ
   weather.innerHTML = `<div class="weather__loading"><img src="loading.gif" alt="Loading..."></div>`;
@@ -57,13 +58,15 @@ export async function getWeatherForOneDay(lat, lon) {
 
 export function dataForOneDay(data) {
     //  Обрабатывем и выводим данные
-    const lat = data.coord.lat;
-    const lon = data.coord.lon;
+    const lat = data.city.coord.lat;
+    const lon = data.city.coord.lon;
     console.log(data);
-    const location = data.name;
-    const temp = Math.round(data.main.temp);
-    const weatherStatus = data.weather[0].main;
-    const weatherIcon = data.weather[0].icon;
+    const weatherIconUrl = "https://openweathermap.org/img/wn/";
+    const todayWeather = data.list[0];
+    const temp = Math.round(todayWeather.main.temp);
+    const weatherStatus = todayWeather.weather[0].description;
+    const location = data.city.name;
+    const iconUrl = `${weatherIconUrl}${todayWeather.weather[0].icon}@4x.png`;
     const currentDayOfWeek = new Date().toLocaleDateString('en-US', { weekday: 'short' });
     const currentDay = new Date().toLocaleDateString('en-US', { day: 'numeric' }).toUpperCase();
     const currentMonth = new Date().toLocaleDateString('en-US', { month: 'short' });
@@ -82,7 +85,7 @@ export function dataForOneDay(data) {
             </div>
           </div>
           <div class="icon__picture">
-            <img class="weather__picture" src="https://openweathermap.org/img/w/${weatherIcon}.png" alt="Clouds">
+            <img class="weather__picture" src="${iconUrl}" alt="Clouds">
           </div>
           <div class="date__wrapper">
             <div class="day">${currentDayOfWeek}</div>
